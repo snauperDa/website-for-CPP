@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>C++ Academy — Мастерство Windows-программирования · Компьютерная школа «Профи-Софт»</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:#C0C0C0;
+    font-family:"MS Sans Serif",Tahoma,Verdana,Geneva,Arial,sans-serif;
+    font-size:13px;
+    color:#000000;
+    padding:8px 10px 16px;
+  }
+  .page { width:920px; margin:0 auto; }
+  .mono { font-family:"Courier New",Courier,monospace; font-weight:bold; }
+  h1 { font-family:Arial,Tahoma,Verdana,sans-serif; color:#000080; font-size:30px; letter-spacing:3px; }
+  h2 {
+    font-family:Arial,Tahoma,Verdana,sans-serif;
+    color:#000080;
+    font-size:17px;
+    margin:22px 0 10px;
+  }
+  .red { color:#C00000; font-weight:bold; }
+  .grn { color:#008000; font-weight:bold; }
+  .cap { font-size:11px; color:#404040; }
+  .small { font-size:11px; }
+
+  .nav {
+    background:#000080;
+    padding:6px 12px;
+    border:2px solid;
+    border-color:#FFFFFF #404040 #404040 #FFFFFF;
+    font-weight:bold;
+    font-size:12px;
+  }
+  .nav a { color:#FFFFFF; text-decoration:none; margin-right:15px; }
+  .nav a:hover { color:#FFFF00; text-decoration:underline; }
+  .uc {
+    display:inline-block;
+    background:#FFD700;
+    color:#000000;
+    padding:1px 6px;
+    font-family:"Courier New",monospace;
+    font-weight:bold;
+    font-size:10px;
+    border:2px solid;
+    border-color:#FFFFFF #808080 #808080 #FFFFFF;
+  }
+  .uc b { color:#FFFFFF; background:#000000; padding:0 2px; }
+
+  .titlebar {
+    margin-top:4px;
+    background:#000080;
+    color:#FFFFFF;
+    font-family:Arial,Tahoma,sans-serif;
+    font-weight:bold;
+    font-size:14px;
+    padding:5px 10px;
+    border:1px solid #000000;
+  }
+  .wbtn {
+    display:inline-block;
+    width:14px; height:13px;
+    line-height:13px;
+    text-align:center;
+    font-size:10px;
+    font-family:Arial,sans-serif;
+    background:#C0C0C0;
+    color:#000000;
+    margin-left:3px;
+    border:1px solid;
+    border-color:#FFFFFF #808080 #808080 #FFFFFF;
+  }
+  .win { background:#C0C0C0; }
+
+  .bevel { border:1px solid; border-color:#FFFFFF #808080 #808080 #FFFFFF; }
+  .bevel2 { border:1px solid; border-color:#DFDFDF #404040 #404040 #DFDFDF; }
+  .sunken { border:1px solid; border-color:#808080 #FFFFFF #FFFFFF #808080; background:#FFFFFF; }
+  .grp { background:#C0C0C0; }
+  .grp .bevel2 { padding:8px; }
+
+  table.lt { border-collapse:collapse; width:100%; font-size:13px; }
+  table.lt th {
+    background:#000080; color:#FFFFFF;
+    text-align:left; padding:4px 8px;
+    font-family:Arial,Tahoma,sans-serif; font-size:12px;
+  }
+  table.lt td { border:1px solid #808080; padding:4px 8px; vertical-align:top; }
+  table.lt tr.hl td { background:#FFFFFF; }
+  table.yla td { vertical-align:top; padding:0; }
+  table.yla td.pad { padding:0 10px 0 0; }
+
+  .btn {
+    display:inline-block;
+    background:#C0C0C0;
+    border:2px solid;
+    border-color:#FFFFFF #808080 #808080 #FFFFFF;
+    padding:3px 14px;
+    font-family:Arial,Tahoma,sans-serif;
+    font-size:13px;
+    font-weight:bold;
+    color:#000000;
+    text-decoration:none;
+  }
+  .btn:hover { text-decoration:underline; }
+  .btnbig {
+    display:inline-block;
+    background:#C0C0C0;
+    border:3px solid;
+    border-color:#FFFFFF #000000 #000000 #FFFFFF;
+    border-top-width:1px; border-left-width:1px;
+    padding:8px 24px;
+    font-family:Arial,Tahoma,sans-serif;
+    font-size:14px;
+    font-weight:bold;
+    color:#000080;
+    text-decoration:none;
+  }
+  .btnbig:hover { text-decoration:underline; }
+
+  .inp {
+    border:2px solid;
+    border-color:#808080 #FFFFFF #FFFFFF #808080;
+    border-top-width:1px; border-left-width:1px;
+    background:#FFFFFF;
+    padding:3px 5px;
+    font-family:"MS Sans Serif",Tahoma,sans-serif;
+    font-size:13px;
+    width:100%;
+  }
+
+  .photo {
+    display:inline-block;
+    background:#FFFFFF;
+    padding:4px;
+    border:2px solid;
+    border-color:#FFFFFF #808080 #808080 #FFFFFF;
+    text-align:center;
+  }
+  .photo img { display:block; border:1px solid #000000; }
+  .card {
+    border:2px solid;
+    border-color:#FFFFFF #808080 #808080 #FFFFFF;
+    border-top-width:1px; border-left-width:1px;
+    background:#DFDFDF;
+    padding:6px 10px;
+    vertical-align:top;
+  }
+  .card b.name { font-size:14px; color:#000080; }
+
+  hr.era {
+    border:0; height:2px; margin:10px 0 14px;
+    border-top:1px solid #808080;
+    border-bottom:1px solid #FFFFFF;
+  }
+  table.frm td { padding:3px 8px 3px 0; vertical-align:middle; }
+  textarea.inp { font-family:"Courier New",Courier,monospace; font-size:12px; }
+
+  ul.lb { list-style:none; margin-left:4px; }
+  ul.lb li { padding:2px 0 2px 16px; position:relative; }
+  ul.lb li:before { content:"■"; color:#000080; font-size:10px; position:absolute; left:0; top:2px; }
+
+  ol.mod { margin-left:20px; }
+  ol.mod > li { margin:10px 0; }
+  ol.mod b.mt { color:#000080; font-size:14px; }
+  ol.mod i { color:#404040; font-size:12px; }
+
+  .quote { font-style:italic; }
+  .statbar { background:#C0C0C0; margin-top:14px; padding:3px; border:1px solid #000000; }
+  .statcell {
+    border:1px solid;
+    border-color:#FFFFFF #808080 #808080 #FFFFFF;
+    background:#C0C0C0;
+    padding:2px 8px;
+    font-size:11px;
+    color:#000000;
+  }
+</style>
+</head>
+<body>
+<div class="page" id="top">
+
+  <div class="nav">
+    <a href="#top">Главная</a>
+    <a href="#problem">Почему C++</a>
+    <a href="#program">Программа</a>
+    <a href="#instructors">Преподаватели</a>
+    <a href="#graduates">Выпускники</a>
+    <a href="#requirements">Требования</a>
+    <a href="#zayavka">Запись</a>
+    <span class="uc">NEW!</span>
+  </div>
+
+  <div class="titlebar">
+    C++ ACADEMY — Мастерство Windows-программирования
+    <span style="float:right">
+      <span class="wbtn">&mdash;</span><span class="wbtn">□</span><span class="wbtn">×</span>
+    </span>
+  </div>
+
+  <table class="yla" width="100%">
+    <tr>
+      <td class="pad" width="58%">
+        <h1>C++ ACADEMY</h1>
+        <div style="font-size:14px;margin-top:2px;">Компьютерная школа «Профи-Софт» · Москва · с 1996 года</div>
+        <h2 style="border-top:1px solid #000080;padding-top:6px;">Мастерство Windows-программирования</h2>
+        <p style="margin:8px 0;">Для тех, кто хочет настоящего. Не для слабаков. Интенсивные вечерние курсы для начинающих программистов, которые хотят создавать настоящие Windows-приложения и игры на самом мощном языке конца 1990-х.</p>
+        <p style="margin:8px 0;"><b>Через 6 месяцев вы будете создавать собственные приложения для Windows 95/98 и получите работу с зарплатой <span class="red">от $500</span>.</b></p>
+        <p style="margin:8px 0 12px;">Профессиональный уровень. Объектно-ориентированный подход. Прямой доступ к Windows API.</p>
+        <a class="btnbig" href="#zayavka">Записаться на курс</a>
+        <div class="cap" style="margin-top:10px;">Занятия вечерние · программа на 6 месяцев · компьютерный класс на 12 мест</div>
+        <p style="margin-top:12px;" class="small">Язык: C++, среда: Microsoft Visual C++ 6.0. Платформа: Windows 95/98.</p>
+      </td>
+      <td width="42%">
+        <div align="center">
+          <div class="photo">
+            <img src="assets/images/pc-1998.jpg" width="285" alt="Компьютер Pentium II">
+            <span class="cap">Pentium II 350 МГц — ваш рабочий инструмент на курсе.</span>
+          </div>
+          <div style="margin-top:8px;" class="photo">
+            <img src="assets/images/win95-desktop.jpg" width="285" alt="Рабочий стол Windows 95">
+            <span class="cap">Windows 95/98 — платформа ваших будущих приложений.</span>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <h2 id="problem">Почему другие языки не подходят</h2>
+  <hr class="era">
+  <table class="yla" width="100%">
+    <tr>
+      <td class="pad">
+        <table class="lt">
+          <tr>
+            <th>Язык</th>
+            <th>Чем не подходит для серьёзной работы</th>
+            <th>Вердикт</th>
+          </tr>
+          <tr>
+            <td class="mono">Basic</td>
+            <td>Слишком медленный для серьёзных приложений</td>
+            <td class="red">✗</td>
+          </tr>
+          <tr>
+            <td class="mono">Pascal</td>
+            <td>Не поддерживает объектно-ориентированное программирование</td>
+            <td class="red">✗</td>
+          </tr>
+          <tr>
+            <td class="mono">Ассемблер</td>
+            <td>Требует слишком много времени на разработку</td>
+            <td class="red">✗</td>
+          </tr>
+          <tr>
+            <td class="mono">Java (1995)</td>
+            <td>Слишком нова и медленна</td>
+            <td class="red">✗</td>
+          </tr>
+          <tr class="hl">
+            <td class="mono">C++</td>
+            <td><b>Единственный язык, сочетающий производительность C и мощь ООП.</b> Промышленный стандарт Windows-разработки.</td>
+            <td class="grn">✓</td>
+          </tr>
+        </table>
+        <p style="margin-top:10px;"><b>Вывод:</b> C++ — единственный язык, сочетающий производительность C и мощь ООП.</p>
+        <div align="center" style="margin-top:14px;">
+          <div class="photo" style="margin-right:6px;">
+            <img src="assets/images/cpp-books-1.jpg" width="100" height="140" alt="Книга по C++">
+          </div>
+          <div class="photo" style="margin-right:6px;">
+            <img src="assets/images/cpp-books-2.jpg" width="100" height="140" alt="Книга по C++">
+          </div>
+          <div class="photo">
+            <img src="assets/images/cpp-books-3.jpg" width="100" height="140" alt="Книга по C++">
+          </div>
+          <span class="cap" style="display:block;margin-top:6px;">Учебники по C++ — до 800 страниц, от $50 до $80 за экземпляр.</span>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <p class="small" style="margin-top:6px;">Серьёзное обучение — это серьёзные инструменты. Мы читаем только толстые книги.</p>
+
+  <h2 id="program">Программа обучения — 6 месяцев, вечерние занятия</h2>
+  <hr class="era">
+  <table class="yla" width="100%">
+    <tr>
+      <td class="pad" width="60%">
+        <ol class="mod">
+          <li><b class="mt">Модуль 1. Основы C++</b> <i>(4 недели)</i>
+            <ul class="lb">
+              <li>Синтаксис, типы данных, операторы</li>
+              <li>Функции и указатели</li>
+              <li>Работа с памятью</li>
+            </ul>
+          </li>
+          <li><b class="mt">Модуль 2. Объектно-ориентированное программирование</b> <i>(6 недель)</i>
+            <ul class="lb">
+              <li>Классы и объекты</li>
+              <li>Наследование и полиморфизм</li>
+              <li>Инкапсуляция</li>
+            </ul>
+          </li>
+          <li><b class="mt">Модуль 3. Windows API</b> <i>(8 недель)</i>
+            <ul class="lb">
+              <li>Создание окон и диалогов</li>
+              <li>Обработка сообщений</li>
+              <li>Графический интерфейс (GDI)</li>
+            </ul>
+          </li>
+          <li><b class="mt">Модуль 4. Визуальная разработка</b> <i>(6 недель)</i>
+            <ul class="lb">
+              <li>Microsoft Visual C++ 6.0</li>
+              <li>MFC (Microsoft Foundation Classes)</li>
+              <li>Создание полноценного приложения</li>
+            </ul>
+          </li>
+          <li><b class="mt">Модуль 5. Итоговый проект</b> <i>(4 недели)</i>
+            <ul class="lb">
+              <li>Разработка собственного Windows-приложения</li>
+              <li>Презентация проекта</li>
+            </ul>
+          </li>
+        </ol>
+      </td>
+      <td width="40%">
+        <div align="center">
+          <div class="photo">
+            <img src="assets/images/vc6-ide.png" width="280" alt="Среда разработки Visual C++ 6.0">
+            <span class="cap">Microsoft Visual C++ 6.0 — среда, которую вы освоите в модуле 4.</span>
+          </div>
+        </div>
+        <div class="bevel grp" style="margin-top:12px;">
+          <div class="bevel2">
+            <b>Стоимость обучения:</b>
+            <div style="font-size:18px;margin:6px 0 2px;"><span class="red">2&nbsp;500&nbsp;000 рублей</span></div>
+            <div class="cap">(~ $400 по курсу 1998 года)</div>
+            <div style="margin-top:6px;">Рассрочка: <b>3 платежа без процентов</b></div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <h2 id="instructors">Ваши преподаватели — практикующие разработчики</h2>
+  <hr class="era">
+  <table class="yla" width="100%">
+    <tr>
+      <td class="pad" width="34%">
+        <div class="photo">
+          <img src="assets/images/instructors.jpg" width="280" alt="Преподаватели школы «Профи-Софт»">
+          <span class="cap">Преподаватели курса, компьютерный класс школы «Профи-Софт».</span>
+        </div>
+      </td>
+      <td width="66%">
+        <table width="100%">
+          <tr>
+            <td class="card">
+              <b class="name">Александр Петров</b>
+              <ul class="lb">
+                <li>8 лет опыта программирования на C++</li>
+                <li>Участник разработки бухгалтерской системы для крупного банка</li>
+                <li>Преподаватель курса с 1997 года</li>
+              </ul>
+            </td>
+          </tr>
+          <tr><td style="height:6px;"></td></tr>
+          <tr>
+            <td class="card">
+              <b class="name">Михаил Соколов</b>
+              <ul class="lb">
+                <li>Бывший инженер НИИ вычислительной техники</li>
+                <li>Разработчик игрового движка (1996&ndash;1998)</li>
+                <li>Автор статей в журнале «Программист»</li>
+              </ul>
+            </td>
+          </tr>
+          <tr><td style="height:6px;"></td></tr>
+          <tr>
+            <td class="card">
+              <b class="name">Игорь Волков</b>
+              <ul class="lb">
+                <li>Сертифицированный специалист Microsoft (MCSD)</li>
+                <li>Опыт работы с Visual C++ 4.0&ndash;6.0</li>
+                <li>Консультант по Windows-разработке</li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <h2 id="graduates">«Через полгода после курса я получил работу в Microsoft»</h2>
+  <hr class="era">
+  <table class="yla" width="100%">
+    <tr>
+      <td class="pad" width="66%">
+        <div class="bevel grp">
+          <div class="bevel2">
+            <div style="margin-bottom:8px;"><b>Андрей К., выпускник 1999 года:</b></div>
+            <div class="quote">
+              «До курса я работал системным администратором за 800&nbsp;000 рублей в месяц. Знакомый программист сказал, что C++ — это будущее. Я записался на вечерние занятия, хотя было очень сложно после работы.
+            </div>
+            <div class="quote" style="margin:8px 0;">
+              Через 4 месяца я уже мог создавать простые Windows-приложения. На 5-м месяце сделал собственный проект — базу данных для небольшого магазина. Это стало моим портфолио.
+            </div>
+            <div class="quote">
+              После выпуска получил три предложения о работе. Выбрал позицию C++ разработчика в московском офисе Microsoft. Зарплата — <span class="red">$800</span>, что в 4 раза больше прежней.»
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:10px;background:#DFDFDF;padding:8px;border:2px solid;border-color:#FFFFFF #808080 #808080 #FFFFFF;border-top-width:1px;border-left-width:1px;">
+          <b>Текущая позиция:</b> Senior Developer, Москва<br>
+          <b>Зарплата после курса:</b> <span class="red">$800</span> &#8594; <span class="red">$1&nbsp;500</span> (через 2 года)
+        </div>
+      </td>
+      <td width="34%">
+        <div align="center">
+          <div class="photo">
+            <img src="assets/images/student.jpg" width="285" alt="Выпускник курса Андрей К.">
+            <span class="cap">Андрей К., выпускник «C++ Academy» 1999 года.</span>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <h2 id="requirements">Что нужно для обучения</h2>
+  <hr class="era">
+  <table class="yla" width="100%">
+    <tr>
+      <td class="pad">
+        <table class="lt">
+          <tr>
+            <th>Параметр</th>
+            <th>Минимальные требования</th>
+            <th>Рекомендуемые требования</th>
+          </tr>
+          <tr><td>Процессор</td><td>Intel Pentium 133 МГц</td><td>Intel Pentium II 300 МГц</td></tr>
+          <tr><td>Оперативная память</td><td>32 МБ</td><td>64 МБ</td></tr>
+          <tr><td>Жёсткий диск</td><td>500 МБ свободного места</td><td>2 ГБ свободного места</td></tr>
+          <tr><td>Видеокарта</td><td>SVGA (256 цветов)</td><td>SVGA (High Color, 16 бит)</td></tr>
+          <tr><td>CD-ROM привод</td><td>да</td><td>да</td></tr>
+          <tr><td>Операционная система</td><td>Windows 95 или Windows 98</td><td>Windows 98</td></tr>
+          <tr><td>Звуковая карта</td><td>—</td><td>да (для мультимедийных примеров)</td></tr>
+        </table>
+
+        <div class="bevel grp" style="margin-top:12px;">
+          <div class="bevel2">
+            <b>ПО входит в стоимость курса:</b>
+            <ul class="lb">
+              <li>Microsoft Visual C++ 6.0 (учебная лицензия)</li>
+              <li>Windows SDK</li>
+              <li>Учебные материалы на CD-ROM</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="sunken" style="margin-top:10px;padding:8px;">
+          <b>Важно:</b> Если у вас нет компьютера, вы можете заниматься в нашем компьютерном классе в свободное время (12 рабочих мест с Pentium II 350 МГц).
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <h2 id="zayavka">Начните свою карьеру в программировании сегодня!</h2>
+  <hr class="era">
+  <div style="margin-bottom:10px;font-size:15px;">
+    Следующий набор: <span class="red">15 сентября 1999 года</span> &nbsp;&nbsp;·&nbsp;&nbsp; Осталось мест: <span class="red">4 из 12</span>
+  </div>
+  <table class="yla" width="100%">
+    <tr>
+      <td class="pad" width="58%">
+        <div class="bevel grp">
+          <div class="bevel2">
+            <b>Как записаться:</b>
+            <ol style="margin:6px 0 0 20px;">
+              <li>Позвоните: <a href="tel:+70951234567">(095) 123-45-67</a></li>
+              <li>Приходите: ул. Программная, д. 42, офис 301 (м. Академическая)</li>
+              <li>Напишите: <a href="mailto:cpp-academy@mail.ru">cpp-academy@mail.ru</a></li>
+            </ol>
+            <div style="margin-top:12px;"><b>Часы работы:</b><br>
+              Пн&ndash;Пт: 10:00 &mdash; 20:00 &nbsp;·&nbsp; Сб: 11:00 &mdash; 17:00 &nbsp;·&nbsp; Вс: выходной
+            </div>
+            <div style="margin-top:12px;"><b>Или оставьте заявку — мы перезвоним:</b></div>
+            <form action="mailto:cpp-academy@mail.ru" method="post" enctype="text/plain" style="margin-top:6px;">
+              <table class="frm">
+                <tr>
+                  <td>Ваше имя:</td>
+                  <td><input class="inp" type="text" name="Имя" size="28"></td>
+                </tr>
+                <tr>
+                  <td>Телефон:</td>
+                  <td><input class="inp" type="text" name="Телефон" size="28"></td>
+                </tr>
+                <tr>
+                  <td>E-mail:</td>
+                  <td><input class="inp" type="text" name="E-mail" size="28"></td>
+                </tr>
+                <tr>
+                  <td>Комментарий:</td>
+                  <td><textarea class="inp" name="Комментарий" rows="3" cols="40"></textarea></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><input type="submit" class="btn" value="Оставить заявку"></td>
+                </tr>
+              </table>
+            </form>
+          </div>
+        </div>
+      </td>
+      <td width="42%">
+        <div class="bevel grp">
+          <div class="bevel2" style="border-color:#C00000 #808080 #808080 #FFD000;">
+            <b style="color:#C00000;">Специальное предложение:</b>
+            <div style="margin-top:4px;">При записи <b>до 1 сентября</b> — скидка 10% и бесплатная книга «C++ для начинающих» (стоимость 150&nbsp;000 рублей).</div>
+          </div>
+        </div>
+        <div class="bevel grp" style="margin-top:10px;">
+          <div class="bevel2">
+            <b>Гарантия:</b>
+            <div style="margin-top:4px;">Если после первого месяца обучения вы решите прекратить занятия — вернём <span class="red">80% стоимости</span>.</div>
+          </div>
+        </div>
+        <div class="bevel grp" style="margin-top:10px;">
+          <div class="bevel2">
+            <b>Следующий набор:</b> 15 сентября 1999 года<br>
+            <b>Рабочее место в классе:</b> Pentium II 350 МГц, 64 МБ ОЗУ, Windows 98
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <p class="small" style="margin-top:12px;color:#808080;">Лицензия на образовательную деятельность №12345 от 15.03.1997. Не является публичной офертой.</p>
+
+  <div class="statbar">
+    <table width="100%">
+      <tr>
+        <td class="statcell">© 1999 Компьютерная школа «Профи-Софт», г. Москва</td>
+        <td class="statcell">C++ Academy — Мастерство Windows-программирования</td>
+        <td class="statcell" align="right">IE 4.0 / Netscape · 800&times;600</td>
+      </tr>
+    </table>
+  </div>
+  <div align="center" style="margin-top:8px;" class="small">
+    cpp-academy@mail.ru · тел. (095) 123-45-67 · ул. Программная, д. 42, офис 301
+  </div>
+
+</div>
+</body>
+</html>
